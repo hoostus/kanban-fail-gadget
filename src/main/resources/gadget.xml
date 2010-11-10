@@ -17,7 +17,7 @@
     <UserPref name="isConfigured" datatype="hidden" default_value="false" />
     <UserPref name="refresh" datatype="hidden" default_value="false"/>
     <UserPref name="component" datatype="hidden" required="true"/>
-    <UserPref name="status" datatype="hidden" required="true" default_value="Awaiting QA"/>
+    <UserPref name="status" datatype="hidden" required="true" default_value="Waiting for QA"/>
     <UserPref name="limit" datatype="hidden" required="true" default_value="5"/>
     <Content type="html" view="profile">
         <![CDATA[
@@ -68,9 +68,9 @@
 					onResizeReload: true,
 					template: function(args) {
 						if (jQuery(args['issues']).find('key').size() > this.getPref("limit")) {
-							this.getView().empty().html("<h1 class='bad'>Bad</h1>")
+							this.getView().empty().html("<h1 class='bad'>" + this.getPref("component") + "</h1>")
 						} else {
-							this.getView().empty().html("<h1 class='good'>Good</h1>")
+							this.getView().empty().html("<h1 class='good'>" + this.getPref("component") + "</h1>")
 						}
 					},
 					args: [{
