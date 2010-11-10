@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
     <ModulePrefs title="__MSG_kanban.fail.gadget.title__" directory_title="__MSG_kanban.fail.gadget.title__" author="Justus"
-	    thumbnail='#staticResourceUrl("kanban.gadgets.fucked:kanban-fail", "thumbnail.jpg")'
+	    thumbnail='#staticResourceUrl("kanban.gadgets.fail:kanban-fail", "thumbnail.jpg")'
         description="__MSG_kanban.fail.gadget.description__">
         <Optional feature="gadget-directory">
             <Param name="categories">
