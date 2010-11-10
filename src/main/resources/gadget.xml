@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Module>
+    <ModulePrefs title="__MSG_kanban.fail.gadget.title__" directory_title="__MSG_kanban.fail.gadget.title__" author="Justus"
+	    thumbnail='#staticResourceUrl("kanban.gadgets.fucked:kanban-fail", "thumbnail.jpg")'
+        description="__MSG_kanban.fail.gadget.description__">
+        <Optional feature="gadget-directory">
+            <Param name="categories">
+                JIRA
+            </Param>
+        </Optional>
+        <Require feature="setprefs"/>
+        <Require feature="views"/>
+        <Require feature="dynamic-height"/>
+	<Optional feature="atlassian.util" />
+	#supportedLocales("gadget.common,kanban.fail")
+    </ModulePrefs>
+    <UserPref name="isConfigured" datatype="hidden" default_value="false" />
+    <UserPref name="refresh" datatype="hidden" default_value="false"/>
+    <UserPref name="component" datatype="hidden" required="true"/>
+    <UserPref name="status" datatype="hidden" required="true" default_value="Awaiting QA"/>
+    <UserPref name="limit" datatype="hidden" required="true" default_value="5"/>
+    <Content type="html" view="profile">
+        <![CDATA[
+		#requireResource("com.atlassian.jira.gadgets:common")
+		#includeResources()
+
+		<style>
+			.good { background-color: green }
+			.bad { background-color: red }
+		</style>
+
+		<script type="text/javascript">
+		(function() {
+			var gadget = AJS.Gadget({
+				baseUrl: "__ATLASSIAN_BASE_URL__",
+				config: {
+					descriptor: function(args) {
+						return {
+							fields : [
+							{
+								userpref: "component",
+								label: "Component",
+								description: "Check for issues in this component",
+								type: "text",
+								value: this.getPref('component')
+							},
+							{
+								userpref: "status",
+								label: "Status",
+								description: "Check for issues in this status",
+								type: "text",
+								value: this.getPref('status')
+							},
+							{
+								userpref: "limit",
+								label: "Issue Limit",
+								description: "Maximum number of issues allowed",
+								type: "text",
+								value: this.getPref("limit")
+							},
+							AJS.gadget.fields.nowConfigured(),
+							]
+						};
+					}
+				},
+				view: {
+					enableReload: true,
+					onResizeReload: true,
+					template: function(args) {
+						if (jQuery(args['issues']).find('key').size() > this.getPref("limit")) {
+							this.getView().empty().html("<h1 class='bad'>Bad</h1>")
+						} else {
+							this.getView().empty().html("<h1 class='good'>Good</h1>")
+						}
+					},
+					args: [{
+						key: 'issues',
+						ajaxOptions: function() {
+							var query = '__ATLASSIAN_BASE_URL__/sr/jira.issueviews:searchrequest-xml/temp/SearchRequest.xml?jqlQuery=component%3D"' + this.getPref('component') + '"+and+status%3D"' + this.getPref('status') + '"';
+							return {
+								type: 'GET',
+								url: query,
+								dataType: 'xml'
+							}
+						}
+					}]
+
+				}
+			})
+		})();
+		</script>
+	]]>
+    </Content>
+ </Module>
+
