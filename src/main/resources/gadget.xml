@@ -19,7 +19,7 @@
     <UserPref name="component" datatype="hidden" required="true"/>
     <UserPref name="status" datatype="hidden" required="true" default_value="Waiting for QA"/>
     <UserPref name="limit" datatype="hidden" required="true" default_value="5"/>
-    <Content type="html" view="profile">
+    <Content type="html" view="profile,wallboard">
         <![CDATA[
 		#requireResource("com.atlassian.jira.gadgets:common")
 		#includeResources()

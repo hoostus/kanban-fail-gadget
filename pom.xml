@@ -14,8 +14,8 @@
         <url>http://www.atlassian.com/</url>
     </organization>
 
-    <name>fucked</name>
-    <description>This is the kanban.gadgets:fucked plugin for Atlassian JIRA.</description>
+    <name>kanban-fail</name>
+    <description>This is the kanban.gadgets:kanban-fail plugin for Atlassian JIRA.</description>
     <packaging>atlassian-plugin</packaging>
 
     <dependencies>
